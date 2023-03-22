@@ -543,7 +543,7 @@
         thisCartProduct.remove();
       });
 
-    };
+    }
 
   } 
 
