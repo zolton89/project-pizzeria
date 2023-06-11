@@ -1,6 +1,7 @@
 import { select } from '../settings.js';
 import AmountWidget from './AmountWidget.js';
 
+
 class CartProduct {
   constructor(menuProduct, element){
     const thisCartProduct = this;
@@ -15,8 +16,6 @@ class CartProduct {
     thisCartProduct.getElements(element);
     thisCartProduct.initAmountWidget();
     thisCartProduct.initActions();
-
-    console.log(thisCartProduct);
   }
 
   getElements(element){
@@ -42,6 +41,7 @@ class CartProduct {
       thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
     });
   }
+
   remove(){
     const thisCartProduct = this;
 
@@ -60,13 +60,14 @@ class CartProduct {
 
     thisCartProduct.dom.edit.addEventListener('click', function(event){
       event.preventDefault();
-
+        
     });
 
     thisCartProduct.dom.remove.addEventListener('click', function(event){
       event.preventDefault();
       thisCartProduct.remove();
     });
+      
   }
 
   getData(){
@@ -83,7 +84,6 @@ class CartProduct {
 
     return (productCartSummary);
   }
-
-}
+} 
 
 export default CartProduct;

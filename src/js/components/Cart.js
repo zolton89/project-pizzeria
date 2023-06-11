@@ -10,8 +10,6 @@ class Cart {
 
     thisCart.getElements(element);
     thisCart.initActions(element);
-
-    console.log('new Cart:', thisCart);
   }
 
   getElements(element){
@@ -53,20 +51,14 @@ class Cart {
     });
   }
 
-  add(menuProduct){
+  add(menuProduct) {
     const thisCart = this;
 
-    //generate HTML based on template
     const generatedHTML = templates.cartProduct(menuProduct);
-
-    //create element DOM using utils.createElementFromHTML
     const generatedDOM = utils.createDOMFromHTML(generatedHTML);
 
-    //add elemnt to menu
     thisCart.dom.productList.appendChild(generatedDOM);
-
     thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
-    console.log('thisCart.products', thisCart.products);
 
     thisCart.update();
   }
@@ -76,6 +68,7 @@ class Cart {
 
     const deliveryFee = settings.cart.defaultDeliveryFee;
     thisCart.totalNumber = 0;
+    thisCart.deliveryFee = deliveryFee;
     thisCart.subtotalPrice = 0;
 
     for (let product of thisCart.products){
@@ -88,7 +81,7 @@ class Cart {
     } else {
       thisCart.totalPrice = 0;
     }
-
+      
     console.log('totalNumber: ', thisCart.totalNumber, 'subtotalPrice: ', thisCart.subtotalPrice, 'totalPrice:', thisCart.totalPrice);
 
     thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
@@ -98,11 +91,12 @@ class Cart {
     for(let price of thisCart.dom.totalPrice){
       price.innerHTML = thisCart.totalPrice;
     }
-      
+
   }
+
   remove(event){
     const thisCart = this;
-
+      
     event.dom.wrapper.remove();
 
     const removeProduct = thisCart.products.indexOf(event);
@@ -121,7 +115,7 @@ class Cart {
       totalPrice: thisCart.totalPrice,
       subtotalPrice: thisCart.subtotalPrice,
       totalNumber: thisCart.totalNumber,
-      deliveryFee: thisCart.dom.deliveryFee,
+      deliveryFee: thisCart.deliveryFee,
       products: [],
     };
 
@@ -136,16 +130,15 @@ class Cart {
       },
       body: JSON.stringify(payload),
     };
-
+      
     fetch(url, options)
       .then(function(response) {
         return response.json();
       }).then(function(parsedResponse) {
         console.log('parsedResponse: ', parsedResponse);
       });
-
+      
   }
-
 }
 
 export default Cart;
